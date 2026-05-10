@@ -3,44 +3,44 @@
 @section('title', 'Manage Prices')
 
 @section('content')
-<div style="display: flex; gap: 2rem;">
+<div class="admin-form-container">
     <!-- Price Form (Add or Edit) -->
-    <div class="card" style="width: 350px; flex-shrink: 0; align-self: flex-start;">
+    <div class="card admin-form-card">
         <h3 id="formTitle">Add New Price</h3>
-        <form id="priceForm" action="{{ route('admin.prices.store') }}" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+        <form id="priceForm" action="{{ route('admin.prices.store') }}" method="POST" class="admin-form">
             @csrf
             <div id="methodField"></div>
-            <div>
-                <label style="display: block; font-weight: 500; margin-bottom: 0.5rem; color: #475569;">Category</label>
-                <select name="category" id="categoryField" required style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category" id="categoryField" required>
                     <option value="Food">Food</option>
                     <option value="Fuel">Fuel</option>
                     <option value="Electricity">Electricity</option>
                     <option value="Other">Other</option>
                 </select>
             </div>
-            <div>
-                <label style="display: block; font-weight: 500; margin-bottom: 0.5rem; color: #475569;">Item Name</label>
-                <input type="text" name="item_name" id="itemNameField" required placeholder="e.g. Bread (1 loaf)" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;">
+            <div class="form-group">
+                <label>Item Name</label>
+                <input type="text" name="item_name" id="itemNameField" required placeholder="e.g. Bread (1 loaf)">
             </div>
-            <div>
-                <label style="display: block; font-weight: 500; margin-bottom: 0.5rem; color: #475569;">Price Value</label>
-                <input type="number" step="0.001" name="price" id="priceField" required placeholder="e.g. 0.190" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;">
+            <div class="form-group">
+                <label>Price Value</label>
+                <input type="number" step="0.001" name="price" id="priceField" required placeholder="e.g. 0.190">
             </div>
-            <div>
-                <label style="display: block; font-weight: 500; margin-bottom: 0.5rem; color: #475569;">Price Source</label>
-                <select name="source" id="sourceField" required style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <div class="form-group">
+                <label>Price Source</label>
+                <select name="source" id="sourceField" required>
                     <option value="Official">Official / Regulated</option>
                     <option value="Market">Estimated Market</option>
                 </select>
             </div>
-            <button type="submit" id="submitBtn" class="btn-primary" style="margin-top: 1rem;">+ Add Price</button>
-            <button type="button" id="cancelBtn" onclick="resetForm()" style="display: none; padding: 0.75rem; background: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; color: #475569;">Cancel Edit</button>
+            <button type="submit" id="submitBtn" class="btn-primary">+ Add Price</button>
+            <button type="button" id="cancelBtn" onclick="resetForm()" class="btn-secondary" style="display: none;">Cancel Edit</button>
         </form>
     </div>
 
     <!-- Prices List -->
-    <div class="card" style="flex: 1;">
+    <div class="card admin-list-card">
         <h3>Current Tracked Prices</h3>
         <table>
             <thead>
@@ -55,7 +55,7 @@
             <tbody>
                 @foreach($prices as $p)
                 <tr>
-                    <td><span style="font-weight: 600;">{{ $p->category }}</span></td>
+                    <td><span class="category-name">{{ $p->category }}</span></td>
                     <td>{{ $p->item_name }}</td>
                     <td>{{ number_format($p->price, 3) }} TND</td>
                     <td>
@@ -63,8 +63,8 @@
                             {{ $p->source }}
                         </span>
                     </td>
-                    <td style="display: flex; gap: 0.5rem;">
-                        <button type="button" onclick="editPrice({{ json_encode($p) }})" class="btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.85rem; background: #2B5CE6;">Edit</button>
+                    <td class="actions-cell">
+                        <button type="button" onclick="editPrice({{ json_encode($p) }})" class="btn-primary btn-sm">Edit</button>
                         <form action="{{ route('admin.prices.destroy', $p->price_id) }}" method="POST" onsubmit="return confirm('Delete this price?');">
                             @csrf
                             @method('DELETE')

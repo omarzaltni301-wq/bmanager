@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="card">
-    <table style="width: 100%;">
+    <table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -22,9 +22,9 @@
                 <td>{{ $u->email }}</td>
                 <td>
                     @if($u->is_admin)
-                        <span class="badge" style="background:#dbeafe; color:#1e40af;">Admin</span>
+                        <span class="badge badge-admin">Admin</span>
                     @else
-                        <span class="badge" style="background:#f1f5f9; color:#475569;">User</span>
+                        <span class="badge badge-user">User</span>
                     @endif
                 </td>
                 <td>{{ $u->created_at->format('Y-m-d H:i') }}</td>
@@ -32,7 +32,7 @@
             @endforeach
             @if($users->count() == 0)
             <tr>
-                <td colspan="5" style="text-align: center; padding: 2rem;">No users found.</td>
+                <td colspan="5" class="no-data">No users found.</td>
             </tr>
             @endif
         </tbody>
