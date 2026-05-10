@@ -42,9 +42,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/savings', [CalculatorController::class, 'storeSaving'])->name('savings.store');
     Route::put('/savings/{id}', [CalculatorController::class, 'updateSaving'])->name('savings.update');
     Route::delete('/savings/{id}', [CalculatorController::class, 'deleteSaving'])->name('savings.destroy');
+<<<<<<< HEAD
+=======
 
     // Chatbot
     Route::post('/chatbot/message', [\App\Http\Controllers\ChatbotController::class, 'message'])->name('chatbot.message');
+>>>>>>> origin/main
 });
 
 // ── Admin Routes ──
