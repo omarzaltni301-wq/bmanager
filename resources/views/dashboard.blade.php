@@ -11,6 +11,7 @@
 
     <!-- Welcome Bar -->
     <div class="welcome-bar">
+        <h1>Welcome to your dashboard</h1>
         <h1>Welcome back, {{ Auth::user()->full_name }}! 👋</h1>
         <p id="currentDate"></p>
     </div>
